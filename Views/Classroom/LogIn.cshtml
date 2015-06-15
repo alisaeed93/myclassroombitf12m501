@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Classroom.Models.User
+@using Classroom.Models
+
+<!DOCTYPE html>
+
+@{
+    String Result = ViewBag.Result;
+}
+
+@{
+    User us = (User)Session["User"];
+
+    if (us != null)
+    {
+        Response.Redirect("/Classroom/Classes");
+    }
+   
+}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+     <title>LogIn</title>
+</head>
+<body class="body">
+
+
+    <div style="font-family:'Comic Sans MS'; padding-left:350px;color:white; font-size:80px; padding-top:30px">WelCome to Class</div>
+
+    
+
+    <div class="container">
+
+        <div class="box" style="padding-top:80px">
+
+            @using (Html.BeginForm("ClassRoomLogIn", "ClassRoom", FormMethod.Post))
+            {
+                <div class="search-text">
+
+                    @Html.LabelFor(u => u.UserName)
+                    
+                    <div class="icons">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <input required type="text" id="na" name="UserName" class="form-control" style="width:400px" placeholder="User Name" />
+                        </div>
+                    </div>
+                    <br />
+                    @Html.LabelFor(u => u.Password)
+                    <div class="icons">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-lock"> </i>
+                            <input required type="password" id="pas" name="Password" class="form-control" style="width:400px" placeholder="password" />
+
+                        </div>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success" >Login</button>
+
+                    @{
+                if (Result != null)
+                {
+                    <br />
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                        <label>Wrong User Name or Password</label>
+                }
+                    }
+
+                    <div class="clearfix"></div>
+                    <div class="form-group col-lg-12">
+                        <input type="hidden" name="login" value="login">
+
+
+
+                    </div>
+                </div>
+            }
+           
+        </div>
+        </div>
+   
+                <nav class="nav navbar-inverse" role="navigation">
+                    <div class="nav navbar-fixed-bottom pull-right">
+
+                        <a class="navbar-brand " href="/Classroom/SignUP">SIGN UP</a>
+
+                    </div>
+                </nav>
+</body>
+</html>
+
+<script>
+
+    function validate ()
+    {
+        var uname = $('#na').val();
+        var pass = $('#pas').val();
+
+        if (uname.length == 0)
+        {
+            alert("Enter UserName");
+        }
+
+        if (pass.length == 0)
+        {
+            alert("Please Enter Passsword");
+        }
+
+        
+    }
+    
+
+</script>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="48109366ef064d44ae05271d4d302c70" Name="Diagram1">
+        <EntityTypeShape EntityType="myDbModel.Class" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDbModel.Comment" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDbModel.Status" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDbModel.Student" Width="1.5" PointX="7.375" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDbModel.User" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="myDbModel.Class_ID1" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.ClassID" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.Teacher_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.Status_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.Student_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.Student_ID1" ManuallyRouted="false" />
+        <AssociationConnector Association="myDbModel.StudentID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="myDbModel.TeacherData" Width="1.5" PointX="2.25" PointY="8.75" />
+        <AssociationConnector Association="myDbModel.DClass" />
+        <EntityTypeShape EntityType="myDbModel.AssignmentPost" Width="1.5" PointX="5.25" PointY="10.5" />
+        <AssociationConnector Association="myDbModel.CtoClass" />
+        <EntityTypeShape EntityType="myDbModel.Assignment" Width="1.5" PointX="4.875" PointY="5.75" />
+        <AssociationConnector Association="myDbModel.APtoUs" />
+        <AssociationConnector Association="myDbModel.ASSPtoAssi" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

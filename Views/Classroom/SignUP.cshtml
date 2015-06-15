@@ -1,0 +1,159 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Classroom.Models
+
+<!DOCTYPE html>
+
+@{
+    String Result = ViewBag.Result;
+}
+
+@{
+    User us = (User)Session["User"];
+
+    if (us != null)
+    {
+        Response.Redirect("/Classroom/Classes");
+    }
+
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SignUP</title>
+</head>
+<body class="body">
+
+    <div style="font-family:'Comic Sans MS'; padding-left:300px;color:white; font-size:80px; padding-top:30px">Sign Up with Class
+    
+    </div>
+
+   
+
+    <nav class="nav navbar-inverse" role="navigation">
+        <div class="nav navbar-fixed-top pull-right">
+
+            <a class="navbar-brand " href="/Classroom/LogIn">LOG IN</a>
+
+        </div>
+    </nav>
+
+    <div class="box" style="padding-top:80px;padding-left:125px">
+
+        
+        
+       
+
+            <form action="/ClassRoom/ClassRoomSignUp" method="post" enctype="multipart/form-data">
+                <div class="search-text">
+                    
+
+                    <label>User Name</label>                 
+                    <div class="icons">
+                        <div id="checking">Checking...</div>
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <input required type="text" id="UserName" name="UserName" class="form-control" style="width:400px" placeholder=" username" />
+                            <button type="button" id="b1" value="Check" class="btn btn-success">Check Availability</button>
+                            <br/>
+                            <div id="result"></div>
+                            @Scripts.Render("~/bundles/jquery")
+                            <script>
+
+                                $(document).ready(function () {
+
+                                    $('#checking').hide();
+
+                                    $('#b1').click(function () {
+
+                                        var userName = $('#UserName').val();
+
+                                        //alert('User Name ='+ userName);
+                                        $('#checking').show();
+                                        $.getJSON("/Classroom/CheckUserName?UserName=" + userName, function (data) {
+                                            $('#checking').hide();
+                                            if (data) {
+                                                $('#result').text("User already exists in database");
+
+                                            }
+                                            else {
+                                                $('#result').text("User Name is available");
+                                            }
+                                        });
+
+                                    });
+
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+                    <br />
+                    <label>Password</label>
+                    <div class="icons">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-lock"></i>
+                            <input required type="password" name="Password" class="form-control" style="width:400px" placeholder="password" />
+                        </div>
+                    </div>
+                    <br />
+                    <label>Name</label>
+                    <div class="icons">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-envelope"></i>
+                            <input required type="text" name="Name" class="form-control" style="width:400px" placeholder="Name" />
+                        </div>
+                    </div>
+                    <br />
+
+
+                    <label>Type</label>
+                    <br />
+
+                    <div style="padding-left:20px">
+                        <input required type="radio" name="Type" value="Teacher" checked="checked">Teacher
+                    </div>
+                    <div style="padding-left:20px">
+                        <input required type="radio" name="Type" value="Student">Student
+                    </div>
+
+                    <br />
+
+                    <label>Upload Picture</label>
+                    <div class="icons">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-arrow-up"></i>
+                            <input required type="file" name="Cover" class="form-control" style="width:400px" />
+
+                        </div>
+                    </div>
+                    <br />
+
+                    <button type="submit" class="btn btn-success">SIGN UP</button>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group col-lg-12">
+                        <input type="hidden" name="login" value="login">
+
+                        @{
+                            if (Result != null)
+                            {
+                                <br />
+                            <i class="glyphicon glyphicon-warning-sign"></i>
+                                <label>User Name already in use!!!!</label>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </form>
+    </div>
+   
+
+  
+
+</body>
+</html>

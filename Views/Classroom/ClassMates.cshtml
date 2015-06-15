@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_2.cshtml";
+}
+
+<!DOCTYPE html>
+
+@model Classroom.Models.Class
+
+@using Classroom.Models
+
+@{
+    User user = (User) Session["User"];
+}
+
+@{
+    User us = (User)Session["User"];
+
+    if (us != null)
+    {
+       
+    }
+    else
+    {
+        Response.Redirect("/Classroom/Index");
+    }
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ClassMates</title>
+</head>
+<body>
+
+    <div class="row" >
+
+        <div class="col-lg-6" style="margin-left:300px">
+
+
+           
+            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSMATES</h1>
+
+                @foreach (var s in Model.Students)
+                {
+                         var u = s.User;
+                    
+                    if (s.Request.Equals("Accepted"))
+                        {
+                           <h1 class="list-group-item col-sm-10 " style="font-family:'Comic Sans MS';font-size:15px">
+                                @u.Name</h1>
+
+                        @*if (s.Student_Id == us.Id)
+                        {
+                            <form action="/Classroom/EditProfile" method="post">
+                                <input type="hidden" name="id" value="@us.Id" />
+                                <button class="btn btn-info" style="margin-top:21px;margin-left:10px">EDIT</button>
+                            </form>
+                        }*@
+
+                        if (user.Type.Equals("Teacher"))
+                        {
+                            <form action="/Classroom/DeleteStudent" method="post">
+                                <input type="hidden" name="Student_id" value="@s.Student_Id" />
+                                <input type="hidden" name="Class_id" value="@s.Class_Id" />
+                                <button class="btn btn-info" style="margin-top:21px;margin-left:10px">&times;</button>
+                            </form>
+                        } 
+                    }
+                     
+
+
+
+                }
+                    
+                     
+              
+            </div>
+
+        </div>
+        
+ 
+</body>
+</html>

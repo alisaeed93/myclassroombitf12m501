@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_2.cshtml";
+}
+
+<!DOCTYPE html>
+
+@model Classroom.Models.Class
+
+@using Classroom.Models
+
+@{
+    User us = (User) Session["User"];
+    
+    if (us != null)
+    {
+        if (us.Type.Equals("Student"))
+        {
+            Response.Redirect("/ClassRoom/Classes");
+        }
+    }
+    else
+    {
+        Response.Redirect("/Classroom/Index");
+    }
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Assignments</title>
+</head>
+<body>
+
+    
+    @{
+       var AssignmentP = Model.AssignmentPosts;
+       
+       foreach (AssignmentPost ap in AssignmentP )
+       {
+           <div class="row">
+
+        <div class="col-lg-6" style="margin-left:300px">
+
+            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">@ap.Name</h1>
+            <div class="list-group">
+
+                @foreach (Assignment a in ap.Assignments)
+                {
+                    <a href="/Teacher/DownloadAssignment?path=@a.Path&id=@Model.Id" class="list-group-item " style="font-family:'Comic Sans MS';font-size:15px">@a.User.UserName</a>
+                }
+            </div>
+
+        </div>
+
+    </div> 
+           
+       }
+        
+    }
+    
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+@model Classroom.Models.User
+
+@using Classroom.Models
+
+@{
+    User us = (User)Session["User"];
+
+    if (us != null)
+    {
+       
+    }
+    else
+    {
+        Response.Redirect("/Classroom/Index");
+    }
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SignUP</title>
+</head>
+<body class="body">
+
+    <div style="font-family:'Comic Sans MS'; padding-left:300px;color:white; font-size:80px; padding-top:30px">Sign Up with Class</div>
+
+    <nav class="nav navbar-inverse" role="navigation">
+        <div class="nav navbar-fixed-top pull-right">
+
+            <a class="navbar-brand " href="/Classroom/Classes">BACK</a>
+
+        </div>
+    </nav>
+
+    <div class="box" style="padding-top:80px;padding-left:125px">
+
+
+
+        @using (Html.BeginForm("UpdateProfile", "ClassRoom", FormMethod.Post))
+        { 
+
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <input type="hidden" value="@Model.UserName" name="UserName" />
+            <div class="search-text">
+
+                @Html.LabelFor(u => u.Password)
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <input required type="text" name="Password" value="@Model.Password" class="form-control" style="width:400px" placeholder="@Model.Password" />
+                    </div>
+                </div>
+                <br />
+                @Html.LabelFor(u => u.Name)
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <input required type="text" name="Name" value="@Model.Name" class="form-control" style="width:400px" placeholder="@Model.Name" />
+                    </div>
+                </div>
+                <br />
+
+                <input type="hidden" value="@Model.Type" name="Type" />
+                
+
+                <button type="submit" class="btn btn-success">UPDATE</button>
+
+                <div class="clearfix"></div>
+                <div class="form-group col-lg-12">
+                    <input type="hidden" name="login" value="login">
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Collections
+@using Classroom.Models
+@model List<Class>
+
+<!--<!DOCTYPE html>-->
+
+@{
+    User u = (User) Session["User"];
+}
+
+@{
+    User us = (User)Session["User"];
+
+    if (us != null)
+    {
+       
+    }
+    else
+    {
+        Response.Redirect("/Classroom/Index");
+    }
+}
+
+<!--<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SearchClass</title>
+</head>
+<body>-->
+
+    <div class="row">
+
+        <div class="col-lg-6" style="margin-left:300px">
+
+
+
+            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSES RESULT</h1>
+
+            @foreach (var c in Model)
+            {
+                bool flag = false;
+                
+                foreach (var st in u.Students)
+                {
+                    if (st.Class_Id == c.Id)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                
+                <h1 class="list-group-item col-sm-11 " style="font-family:'Comic Sans MS';font-size:15px">
+                   NAME: @c.Name CLASS CODE: @c.ClassCode
+                </h1>
+
+               
+               
+                if (flag == false)
+                {
+                  
+                    <form action="/Classroom/AddSearchedClass" method="post">
+                        
+                        <input type="hidden" name="Id" value="@c.Id" />
+                        <button class="btn btn-info" style="margin-top:21px;margin-left:10px"><i class="glyphicon glyphicon-plus"></i></button>
+                    </form>  
+                }
+                
+
+            }
+
+
+
+        </div>
+
+    </div>
+
+<!--</body>
+</html>-->

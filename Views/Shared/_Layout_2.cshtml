@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<link href="~/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/style.css" rel="stylesheet" />
+<script src="~/bootstrap/js/bootstrap.js"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/bootstrap/js/npm.js"></script>
+
+@model Classroom.Models.Class
+
+@using Classroom.Models
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+
+    @{
+
+       // User u = (User)Session["User"];
+        string type = (string)Session["Type"];
+
+    }
+
+    <div style="background-image: url(/images/background.jpg);">
+
+
+        <img src="/images/@Model.Cover" class="cover" />
+
+
+    </div>
+
+
+    <nav class="nav " role="navigation" style="background-color:#337ab7">
+        <div class="navbar-header ">
+
+            
+            @if (type.Equals("Teacher"))
+            {
+                <a style="color: white; margin-left: 250px" class="navbar-brand " href="/Classroom/Classes">HOME</a>
+                <a style="color:white" class="navbar-brand " href="/Classroom/Stream?id=@Model.Id">STREAM</a>
+                <a style="color:white" class="navbar-brand " href="/Classroom/ClassMates?id=@Model.Id">STUDENTS</a>
+                <a style="color:white" class="navbar-brand " href="/Teacher/Assignments?id=@Model.Id">ASSIGNMENT</a>
+                <a style="color:white" class="navbar-brand " href="/Teacher/UploadData?id=@Model.Id">DATA</a>
+                <a style="color:white" class="navbar-brand " href="/ClassRoom/Homework?id=@Model.Id">HOMEWORK</a>
+            }
+            else
+            {
+                <a style="color: white; margin-left: 400px" class="navbar-brand " href="/Classroom/Classes">HOME</a>
+                <a style="color:white" class="navbar-brand " href="/Classroom/Stream?id=@Model.Id">STREAM</a>
+                <a style="color:white" class="navbar-brand " href="/Classroom/ClassMates?id=@Model.Id">CLASSMATE</a> 
+                <a style="color:white" class="navbar-brand " href="/ClassRoom/Homework?id=@Model.Id">HOMEWORK</a>
+            }
+            
+            <a style="color:white" class="navbar-brand " href="/Classroom">ABOUT</a>
+
+        </div>
+    </nav>
+
+    <br />
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
