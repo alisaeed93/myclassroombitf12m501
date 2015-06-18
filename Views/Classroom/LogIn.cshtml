@@ -40,50 +40,50 @@
 
     <div class="box" style="padding-top:80px">
 
-        @Html.BeginForm("ClassRoomLogIn", "Classroom", FormMethod.Post)
-        {
-        <div class="search-text">
+        <form action="/ClassRoom/ClassRoomLogIn" method="post">
+            {
+            <div class="search-text">
 
-            @Html.LabelFor(u => u.UserName)
+                @Html.LabelFor(u => u.UserName)
 
-            <div class="icons">
-                <div class="inner-addon left-addon">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <input required type="text" id="na" name="UserName" class="form-control" style="width:400px" placeholder="User Name" />
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <input required type="text" id="na" name="UserName" class="form-control" style="width:400px" placeholder="User Name" />
+                    </div>
                 </div>
-            </div>
-            <br />
-            @Html.LabelFor(u => u.Password)
-            <div class="icons">
-                <div class="inner-addon left-addon">
-                    <i class="glyphicon glyphicon-lock"> </i>
-                    <input required type="password" id="pas" name="Password" class="form-control" style="width:400px" placeholder="password" />
+                <br />
+                @Html.LabelFor(u => u.Password)
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-lock"> </i>
+                        <input required type="password" id="pas" name="Password" class="form-control" style="width:400px" placeholder="password" />
 
+                    </div>
                 </div>
-            </div>
-            <br />
-            <button type="submit" class="btn btn-success">Login</button>
+                <br />
+                <button type="submit" class="btn btn-success">Login</button>
 
-            @{
-                if (Result != null)
-                {
-                    <br />
-                    <i class="glyphicon glyphicon-warning-sign"></i>
-                    <label>Wrong User Name or Password</label>
+                @{
+                    if (Result != null)
+                    {
+                        <br />
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                        <label>Wrong User Name or Password</label>
+                    }
                 }
-            }
 
-            <div class="clearfix"></div>
-            <div class="form-group col-lg-12">
-                <input type="hidden" name="login" value="login">
-
+                <div class="clearfix"></div>
+                <div class="form-group col-lg-12">
+                    <input type="hidden" name="login" value="login">
 
 
+
+                </div>
             </div>
-        </div>
-        }
+            </form>
 
-    </div>
+</div>
 </div>
 
 <nav class="nav navbar-inverse" role="navigation">
