@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Title = "Submission";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,55 +25,55 @@
     }
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Submission</title>
-</head>
-<body class="body">
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Submission</title>
+    </head>
+    <body class="body">*@
 
-    <div class="container">
+<div class="container">
 
-        <div class="box">
+    <div class="box">
 
-                <form action="/ClassRoom/SubmitAssignment" method="post" enctype="multipart/form-data">
-                    <div class="search-text">
+        <form action="/ClassRoom/SubmitAssignment" method="post" enctype="multipart/form-data">
+            <div class="search-text">
 
-                        <label>ASSIGNMENT</label>
-                        <div class="inner-addon left-addon">
-                            <i class="glyphicon glyphicon-briefcase"></i>
-                            <input required type="text" name="Name" class="form-control" style="width:400px" placeholder="Class Name" />
-                        </div>
-                        <br />
+                <label>ASSIGNMENT</label>
+                <div class="inner-addon left-addon">
+                    <i class="glyphicon glyphicon-briefcase"></i>
+                    <input required type="text" name="Name" class="form-control" style="width:400px" placeholder="Class Name" />
+                </div>
+                <br />
 
-                        <input type="hidden" name="Class_Id" value="@Model.Id" />
+                <input type="hidden" name="Class_Id" value="@Model.Id" />
 
-                        <div class="icons">
-                            <div class="inner-addon left-addon">
-                                <i class="glyphicon glyphicon-arrow-up"></i>
-                                <input required type="file" name="Path" class="form-control" style="width:400px" />
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-arrow-up"></i>
+                        <input required type="file" name="Path" class="form-control" style="width:400px" />
 
-                            </div>
-                        </div>
-                        <br />
-
-                        <button type="submit" class="btn btn-warning">CREATE CLASS</button>
-
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-12">
-                            <input type="hidden" name="login" value="login">
-
-                        </div>
                     </div>
-                </form>
-        </div>
+                </div>
+                <br />
+
+                <button type="submit" class="btn btn-warning">CREATE CLASS</button>
+
+                <div class="clearfix"></div>
+                <div class="form-group col-lg-12">
+                    <input type="hidden" name="login" value="login">
+
+                </div>
+            </div>
+        </form>
     </div>
-    <nav class="nav navbar-inverse" role="navigation">
-        <div class="nav navbar-fixed-bottom pull-right">
+</div>
+<nav class="nav navbar-inverse" role="navigation">
+    <div class="nav navbar-fixed-bottom pull-right">
 
-            <a class="navbar-brand " href="/Classroom/Classes">BACK</a>
+        <a class="navbar-brand " href="/Classroom/Classes">BACK</a>
 
-        </div>
-    </nav>
-</body>
-</html>
+    </div>
+</nav>
+@*</body>
+    </html>*@

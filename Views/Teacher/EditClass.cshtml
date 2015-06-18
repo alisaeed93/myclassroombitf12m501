@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Title = "Edit Class";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,62 +25,62 @@
     }
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create Class</title>
-</head>
-<body class="body">
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Create Class</title>
+    </head>
+    <body class="body">*@
 
 
-    <div style="font-family:'Comic Sans MS'; padding-left:450px;color:white; font-size:80px; padding-top:30px">Create Class</div>
-    <div class="container">
+<div style="font-family:'Comic Sans MS'; padding-left:450px;color:white; font-size:80px; padding-top:30px">Create Class</div>
+<div class="container">
 
-        <div class="box" style="padding-top:80px">
-
-
-            <form action="/Teacher/UpdateClass" method="post" enctype="multipart/form-data">
-                <div class="search-text">
-
-                    <input type="hidden" name="id" value="@Model.Id" />
-                    <label>Class Name</label>
-                    <div class="icons">
-                        <div class="inner-addon left-addon">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <input required type="text" name="Name" class="form-control" style="width:400px" placeholder="@Model.Name" value="@Model.Name" />
-
-                        </div>
-                    </div>
-                    <br />
-                   
-
-                    <label>Class Code</label>
-                    <div class="icons">
-                        <div class="inner-addon left-addon">
-                            <i class="glyphicon glyphicon-lock"></i>
-                            <input type="text" name="ClassCode" class="form-control" style="width:400px" placeholder="@Model.ClassCode" value="@Model.ClassCode" />
-                        </div>
-                    </div>
-                    <br />
+    <div class="box" style="padding-top:80px">
 
 
-                    <button type="submit" class="btn btn-warning">UPDATE CLASS</button>
+        <form action="/Teacher/UpdateClass" method="post" enctype="multipart/form-data">
+            <div class="search-text">
 
-                    <div class="clearfix"></div>
-                    <div class="form-group col-lg-12">
-                        <input type="hidden" name="login" value="login">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <label>Class Name</label>
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <input required type="text" name="Name" class="form-control" style="width:400px" placeholder="@Model.Name" value="@Model.Name" />
 
                     </div>
                 </div>
-            </form>
-        </div>
+                <br />
+
+
+                <label>Class Code</label>
+                <div class="icons">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <input type="text" name="ClassCode" class="form-control" style="width:400px" placeholder="@Model.ClassCode" value="@Model.ClassCode" />
+                    </div>
+                </div>
+                <br />
+
+
+                <button type="submit" class="btn btn-warning">UPDATE CLASS</button>
+
+                <div class="clearfix"></div>
+                <div class="form-group col-lg-12">
+                    <input type="hidden" name="login" value="login">
+
+                </div>
+            </div>
+        </form>
     </div>
-    <nav class="nav navbar-inverse" role="navigation">
-        <div class="nav navbar-fixed-bottom pull-right">
+</div>
+<nav class="nav navbar-inverse" role="navigation">
+    <div class="nav navbar-fixed-bottom pull-right">
 
-            <a class="navbar-brand " href="/Classroom/Classes">BACK</a>
+        <a class="navbar-brand " href="/Classroom/Classes">BACK</a>
 
-        </div>
-    </nav>
-</body>
-</html>
+    </div>
+</nav>
+@*</body>
+    </html>*@

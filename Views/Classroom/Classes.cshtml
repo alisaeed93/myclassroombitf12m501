@@ -1,6 +1,15 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
+
+<link href="~/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/style.css" rel="stylesheet" />
+<script src="~/bootstrap/js/bootstrap.js"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/bootstrap/js/npm.js"></script>
 
 @model Classroom.Models.User
 
@@ -16,6 +25,8 @@
     {
         Response.Redirect("/Classroom/Index");
     }
+
+    String msg = ViewBag.Message;
 }
 
 <!DOCTYPE html>
@@ -27,16 +38,16 @@
 </head>
 <body>
 
-   @{
-       User u = (User)Session["User"];
-       
-       if (u == null)
-       {
-           RedirectResult rr = new RedirectResult ("/ClassRoom");
-       }
-   }
+    @{
+        User u = (User)Session["User"];
 
-    <nav class="nav" role="navigation" style="background-color:#337ab7"> 
+        if (u == null)
+        {
+            RedirectResult rr = new RedirectResult("/ClassRoom");
+        }
+    }
+
+    <nav class="nav" role="navigation" style="background-color:#337ab7">
         <div class="navbar-header ">
 
             <a class="navbar-brand " style="color:white" href="/Classroom">HOME</a>
@@ -51,7 +62,7 @@
             else
             {
                 <a class="navbar-brand " style="color: white" href="/Classroom/EditProfile?id=@us.Id">EDIT PROFILE</a>
-                 <a class="navbar-brand " style="color: white" href="/ClassRoom/AddClass?id=@Model.Id">ADD CLASS</a>
+                <a class="navbar-brand " style="color: white" href="/ClassRoom/AddClass?id=@Model.Id">ADD CLASS</a>
             }
 
 
@@ -66,46 +77,52 @@
     <div class="row">
 
 
-            @if (Model.Type.Equals("Teacher") == true)
+        @if (Model.Type.Equals("Teacher") == true)
+        {
+            foreach (var c in Model.Classes)
             {
-                foreach (var c in Model.Classes)
-                {
-                    <div class="col-sm-8" style="margin-left:50px">
+                <div class="col-sm-3" style="margin-left:50px">
 
-                        <label style="font-family:'Comic Sans MS';font-size:25px;">@c.ClassCode</label> <br/>
-                        <img src="/images/@c.Cover" height="200" width="250" /><br/>
-       
-                        <a href="/Classroom/ClassRoom?id=@c.Id" class="btn btn-primary" data-toggle="tooltip" title="enter class" style="font-family: 'Comic Sans MS'; font-size: 20px; color: black; margin-left: 20px;"><i class="glyphicon glyphicon-education"></i></a>
-               
-                        <a href="/Teacher/EditClass?id=@c.Id" class="btn btn-info" data-toggle="tooltip" title="edit class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a href="/Classroom/DeleteClass?id=@c.Id" class="btn btn-danger" data-toggle="tooltip" title="delete class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-remove-sign"></i></a>
-                        
+                    <label style="font-family:'Comic Sans MS';font-size:25px;">@c.ClassCode</label> <br />
+                    <img src="/images/@c.Cover" height="200" width="250" /><br />
+
+                    <a href="/Classroom/ClassRoom?id=@c.Id" class="btn btn-primary" data-toggle="tooltip" title="enter class" style="font-family: 'Comic Sans MS'; font-size: 20px; color: black; margin-left: 20px;"><i class="glyphicon glyphicon-education"></i></a>
+
+                    <a href="/Teacher/EditClass?id=@c.Id" class="btn btn-info" data-toggle="tooltip" title="edit class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="/Classroom/DeleteClass?id=@c.Id" class="btn btn-danger" data-toggle="tooltip" title="delete class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-remove-sign"></i></a>
+
+                </div>
+            }
+
+        }
+        else
+        {
+            foreach (var std in Model.Students)
+            {
+                if (std.Request.Equals("Accepted"))
+                {
+                    <div class="col-lg-2" style="margin-left:50px">
+
+                        <label style="font-family:'Colonna MT';font-size:25px;">@std.Class.ClassCode</label> <br />
+                        <img src="/images/@std.Class.Cover" height="200" width="250" /><br />
+                        <a href="/Classroom/ClassRoom?id=@std.Class_Id" class="btn btn-primary" data-toggle="tooltip" title="enter class" style="font-family: 'Comic Sans MS'; font-size: 20px; color: black; margin-left: 20px;"><i class="glyphicon glyphicon-education"></i></a>
+
+                        <a href="/Classroom/StudentDeleteClass?id=@std.Class_Id" class="btn btn-danger" data-toggle="tooltip" title="delete class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-remove-sign"></i></a>
+
                     </div>
                 }
 
             }
-            else
+        }
+
+        <div class="row" style="padding-left:60px">
+            @if (msg != null)
             {
-                foreach (var std in Model.Students)
-                {
-                    if (std.Request.Equals("Accepted"))
-                    {
-                        <div class="col-lg-2" style="margin-left:50px">
-
-                        <label style="font-family:'Colonna MT';font-size:25px;">@std.Class.ClassCode</label> <br/>
-                        <img src="/images/@std.Class.Cover" height="200" width="250" /><br/>
-                            <a href="/Classroom/ClassRoom?id=@std.Class_Id" class="btn btn-primary" data-toggle="tooltip" title="enter class" style="font-family: 'Comic Sans MS'; font-size: 20px; color: black; margin-left: 20px;"><i class="glyphicon glyphicon-education"></i></a>
-                        
-                        <a href="/Classroom/StudentDeleteClass?id=@std.Class_Id" class="btn btn-danger" data-toggle="tooltip" title="delete class" style="font-family: 'Comic Sans MS'; font-size: 20px; margin-left: 30px; color: black"><i class="glyphicon glyphicon-remove-sign"></i></a>
-                        
-                        </div>
-                    }
-                    
-                }
+                <i class="glyphicon glyphicon-envelope"></i>
+                <label style="font:50px">@msg</label>
             }
-            
+        </div>
 
-       
 
 
     </div>

@@ -1,15 +1,24 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
+
+
+<link href="~/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/bootstrap/css/style.css" rel="stylesheet" />
+<script src="~/bootstrap/js/bootstrap.js"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/bootstrap/js/npm.js"></script>
 
 @using System.Collections
 @using Classroom.Models
 @model List<Class>
 
 <!--<!DOCTYPE html>-->
-
 @{
-    User u = (User) Session["User"];
+    User u = (User)Session["User"];
 }
 
 @{
@@ -17,7 +26,7 @@
 
     if (us != null)
     {
-       
+
     }
     else
     {
@@ -32,51 +41,50 @@
 </head>
 <body>-->
 
-    <div class="row">
+<div class="row">
 
-        <div class="col-lg-6" style="margin-left:300px">
+    <div class="col-lg-6" style="margin-left:300px">
 
 
 
-            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSES RESULT</h1>
+        <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSES RESULT</h1>
 
-            @foreach (var c in Model)
+        @foreach (var c in Model)
+        {
+            bool flag = false;
+            foreach (var st in c.Students)
             {
-                bool flag = false;
-                
-                foreach (var st in u.Students)
+                if (st.Student_Id == u.Id)
                 {
-                    if (st.Class_Id == c.Id)
-                    {
-                        flag = true;
-                        break;
-                    }
+                    flag = true;
+                    break;
                 }
-                
-                <h1 class="list-group-item col-sm-11 " style="font-family:'Comic Sans MS';font-size:15px">
-                   NAME: @c.Name CLASS CODE: @c.ClassCode
-                </h1>
+            }
 
-               
-               
-                if (flag == false)
-                {
-                  
-                    <form action="/Classroom/AddSearchedClass" method="post">
-                        
-                        <input type="hidden" name="Id" value="@c.Id" />
-                        <button class="btn btn-info" style="margin-top:21px;margin-left:10px"><i class="glyphicon glyphicon-plus"></i></button>
-                    </form>  
-                }
-                
+            <h1 class="list-group-item col-sm-11 " style="font-family:'Comic Sans MS';font-size:15px">
+                NAME: @c.Name CLASS CODE: @c.ClassCode
+            </h1>
 
+
+
+            if (flag == false)
+            {
+
+                <form action="/Classroom/AddSearchedClass" method="post">
+
+                    <input type="hidden" name="Id" value="@c.Id" />
+                    <button class="btn btn-info" style="margin-top:21px;margin-left:10px"><i class="glyphicon glyphicon-plus"></i></button>
+                </form>
             }
 
 
+        }
 
-        </div>
+
 
     </div>
+
+</div>
 
 <!--</body>
 </html>-->

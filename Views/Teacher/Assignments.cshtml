@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Title = "Assignments";
     Layout = "~/Views/Shared/_Layout_2.cshtml";
 }
 
@@ -9,8 +10,8 @@
 @using Classroom.Models
 
 @{
-    User us = (User) Session["User"];
-    
+    User us = (User)Session["User"];
+
     if (us != null)
     {
         if (us.Type.Equals("Student"))
@@ -24,39 +25,39 @@
     }
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Assignments</title>
-</head>
-<body>
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Assignments</title>
+    </head>
+    <body>*@
 
-    
-    @{
-       var AssignmentP = Model.AssignmentPosts;
-       
-       foreach (AssignmentPost ap in AssignmentP )
-       {
-           <div class="row">
 
-        <div class="col-lg-6" style="margin-left:300px">
+@{
+    var AssignmentP = Model.AssignmentPosts;
 
-            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">@ap.Name</h1>
-            <div class="list-group">
+    foreach (AssignmentPost ap in AssignmentP)
+    {
+        <div class="row">
 
-                @foreach (Assignment a in ap.Assignments)
-                {
-                    <a href="/Teacher/DownloadAssignment?path=@a.Path&id=@Model.Id" class="list-group-item " style="font-family:'Comic Sans MS';font-size:15px">@a.User.UserName</a>
-                }
+            <div class="col-lg-6" style="margin-left:300px">
+
+                <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">@ap.Name</h1>
+                <div class="list-group">
+
+                    @foreach (Assignment a in ap.Assignments)
+                    {
+                        <a href="/Teacher/DownloadAssignment?path=@a.Path&id=@Model.Id" class="list-group-item " style="font-family:'Comic Sans MS';font-size:15px">@a.User.UserName</a>
+                    }
+                </div>
+
             </div>
 
         </div>
 
-    </div> 
-           
-       }
-        
     }
-    
-</body>
-</html>
+
+}
+
+@*</body>
+    </html>*@

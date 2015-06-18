@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Class Room";
     Layout = "~/Views/Shared/_Layout_2.cshtml";
 }
 
@@ -14,175 +14,176 @@
 
     if (us != null)
     {
-        
+
     }
     else
     {
         Response.Redirect("/Classroom/Index");
     }
 }
-      
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Class Room</title>
-</head>
 
-<body >
-   
-    @{
+@*<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Class Room</title>
+    </head>
 
-        User u = (User)Session["User"];
-        
+    <body >*@
 
-    }
+@{
 
-    <div class="row" style="margin-left:10px;margin-right:10px">
-
-        <div class="col-lg-3">
+    User u = (User)Session["User"];
 
 
-            <div class="panel panel-info">
-                <div class="panel-heading">
+}
+
+<div class="row" style="margin-left:10px;margin-right:10px">
+
+    <div class="col-lg-3">
+
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
                 <div style="font-family: 'Comic Sans MS'; font-size: 15px; margin-left: 40px">TEACHER DATA</div>
-                </div>
-                <div class="panel-body">
-                    @foreach (var t in Model.TeacherDatas)
-                    {
-                        <a href="/Classroom/DownloadTeacherData?FileName=@t.Path&id=@Model.Id" style="font-family:'Comic Sans MS';font-size:18px;padding-left:40px">@t.Name</a>
-                        <br />
-                    }
-                
-                 
-                </div>
             </div>
-          
+            <div class="panel-body">
+                @foreach (var t in Model.TeacherDatas)
+                {
+                    <a href="/Classroom/DownloadTeacherData?FileName=@t.Path&id=@Model.Id" style="font-family:'Comic Sans MS';font-size:18px;padding-left:40px">@t.Name</a>
+                    <br />
+                }
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel-group">
+
+            <form action="/ClassRoom/AddStatus" method="post">
+                <div class="panel panel-info">
+                    <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:15px">Status</div>
+                    <div class="panel-body">
+
+                        <input type="text" name="Description" class="form-control" placeholder="Ask, Review anything on your mind" />
+                        <input type="hidden" name="Class_Id" value="@Model.Id">
+
+                        <input type="hidden" name="Student_Id" value="@u.Id">
+
+                        <input type="hidden" name="id" value="@Model.Id" />
+                    </div>
+
+                    <div class="panel-footer">
+
+                        <button type="submit" class="btn btn-primary">POST</button>
+
+                    </div>
+
+                </div>
+            </form>
+
 
         </div>
 
-        <div class="col-lg-6">
-            <div class="panel-group">
 
-                <form action="/ClassRoom/AddStatus" method="post">
+        <div class="col-lg-13">
+
+
+            @foreach (var s in @Model.Status.Reverse())
+            {
+                <div class="panel-group">
                     <div class="panel panel-info">
-                        <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:15px">Status</div>
+
+                        <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:20px">
+
+                            <img src="/images/@s.User.Picture" height="50" width="50" class="img img-circle" />
+                            @s.User.Name
+
+
+                            @if (s.Student_Id == u.Id)
+                            {
+                                <form action="/Classroom/DeleteStatus" method="post">
+                                    <input type="hidden" name="Class_id" value="@Model.Id" />
+                                    <input type="hidden" name="status_id" value="@s.Id" />
+                                    <button type="submit" class="close" style="position:static">&times;</button>
+                                </form>
+                            }
+
+
+                        </div>
+
+
                         <div class="panel-body">
-
-                            <input type="text" name="Description" class="form-control" placeholder="Ask, Review anything on your mind" />
-                            <input type="hidden" name="Class_Id" value="@Model.Id">
-
-                            <input type="hidden" name="Student_Id" value="@u.Id">
-
-                            <input type="hidden" name="id" value="@Model.Id" />
-                        </div>
-
-                        <div class="panel-footer">
-
-                            <button type="submit" class="btn btn-primary">POST</button>
-
-                        </div>
-
-                    </div>
-                </form>
-
-
-            </div>
-
-
-            <div class="col-lg-13">
-
-                
-                @foreach (var s in @Model.Status.Reverse())
-                {
-                    <div class="panel-group">
-                        <div class="panel panel-info">
-                            
-                            <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:20px">
-                                
-                                    <img src="/images/@s.User.Picture" height="50" width="50" class="img img-circle"   />
-                                    @s.User.Name
-
-                              
-                                    @if (s.Student_Id == u.Id)
-                                    {
-                                        <form action="/Classroom/DeleteStatus" method="post">
-                                            <input type="hidden" name="Class_id" value="@Model.Id" />
-                                            <input type="hidden" name="status_id" value="@s.Id" />
-                                            <button type="submit" class="close" style="position:static">&times;</button>
-                                        </form>
-                                    }
-
-                                
-                            </div>
-                                    
-
-                    <div class="panel-body">
-                    <p style="font-size:22px;font-family:'Comic Sans MS';padding-left:70px">@s.Description
+                            <p style="font-size:22px;font-family:'Comic Sans MS';padding-left:70px">
+                                @s.Description
                         </p>
                     </div>
 
-                    <div class="panel-footer" >
+                    <div class="panel-footer">
                         <p style="font-size:15px;font-family:'Comic Sans MS'">Comments</p>
-               @foreach(var c in s.Comments)
-                {
-                  
-                <div class="panel panel-success">
-                       <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:15px">
+                        @foreach (var c in s.Comments)
+                        {
 
-                           <img src="/images/@c.User.Picture" height="50" width="50" class="img img-circle" />
-                           @c.User.Name
+                            <div class="panel panel-success">
+                                <div class="panel-heading" style="font-family:'Comic Sans MS';font-size:15px">
 
-                       </div>
-                       <div class="panel-body">
-                           <form action="/Classroom/DeleteComment" method="post">
-                               <p style="font-size:15px;font-family:'Comic Sans MS';padding-left:70px">
-                                   @c.Comments
+                                    <img src="/images/@c.User.Picture" height="50" width="50" class="img img-circle" />
+                                    @c.User.Name
 
-                                   @if (c.Student_Id == u.Id)
-                                   {
-                                       <input type="hidden" name="Class_id" value="@Model.Id" />
-                                         <input type="hidden" name="comment_id" value="@c.Id" />
-                                       <button type="submit" class="close" style="position:static">&times;</button>
+                                </div>
+                                <div class="panel-body">
+                                    <form action="/Classroom/DeleteComment" method="post">
+                                        <p style="font-size:15px;font-family:'Comic Sans MS';padding-left:70px">
+                                            @c.Comments
 
-                                   }
+                                            @if (c.Student_Id == u.Id)
+                                            {
+                                                <input type="hidden" name="Class_id" value="@Model.Id" />
+                                                <input type="hidden" name="comment_id" value="@c.Id" />
+                                                <button type="submit" class="close" style="position:static">&times;</button>
 
-                               </p>
-                           </form>
-                       </div>
-                
-                    </div> 
-                }
+                                            }
+
+                                        </p>
+                                    </form>
+                                </div>
+
+                            </div>
+                        }
 
                         <br />
                         <br />
-                <form action="/ClassRoom/AddComment" method="post">
+                        <form action="/ClassRoom/AddComment" method="post">
 
-                    <input type="text" name="Comments" class="form-control" placeholder="Comments what u want" />
-                   
-                    <br />
-                    <br />
-                    <input type="hidden" name="Status_Id" value="@s.Id" />
-                    <input type="hidden" name="Student_Id" value="@u.Id" />
-                    <input type="hidden" name="Class_Id" value="@Model.Id" />
-                    <button type="submit" class="btn btn-success">COMMENT</button>
+                            <input type="text" name="Comments" class="form-control" placeholder="Comments what u want" />
 
-                </form>
+                            <br />
+                            <br />
+                            <input type="hidden" name="Status_Id" value="@s.Id" />
+                            <input type="hidden" name="Student_Id" value="@u.Id" />
+                            <input type="hidden" name="Class_Id" value="@Model.Id" />
+                            <button type="submit" class="btn btn-success">COMMENT</button>
 
-                 </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
-      </div>
 
-        }
+            }
 
-
-                             </div>
 
         </div>
 
-        @if (u.Type.Equals("Teacher"))
-        {
-            
-            <div class="col-lg-3" >
+    </div>
+
+    @if (u.Type.Equals("Teacher"))
+    {
+
+        <div class="col-lg-3">
 
 
             <div class="panel panel-info">
@@ -192,16 +193,16 @@
                 <div class="panel-body">
                     @foreach (var s in Model.Students)
                     {
-                        if (s.Request.Equals ("Pending"))
+                        if (s.Request.Equals("Pending"))
                         {
-                           <div style="font-family:'Comic Sans MS';font-size:18px;padding-left:40px">@s.User.UserName</div>
-                       
+                            <div style="font-family:'Comic Sans MS';font-size:18px;padding-left:40px">@s.User.UserName</div>
+
                             <a href="/Teacher/Add?id=@Model.Id&S_id=@s.Student_Id" class="btn btn-info" style="margin-left:40px"><i class="glyphicon glyphicon-ok"></i></a>
                             <a href="/Teacher/Delete?id=@Model.Id&S_id=@s.Student_Id" class="btn btn-danger" style="margin-left:90px"><i class="glyphicon glyphicon-remove"></i></a>
                             <br />
-                            <br /> 
+                            <br />
                         }
-                        
+
                     }
 
 
@@ -211,10 +212,10 @@
 
         </div>
 
-        }
-        
-        </div>
+    }
 
-    
-</body>
-</html>
+</div>
+
+
+@*</body>
+    </html>*@

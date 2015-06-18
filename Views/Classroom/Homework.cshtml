@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Title = "HomeWork";
     Layout = "~/Views/Shared/_Layout_2.cshtml";
 }
 
@@ -17,7 +18,7 @@
 
     if (us != null)
     {
-       
+
     }
     else
     {
@@ -25,75 +26,75 @@
     }
 }
 
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width" />
+@*<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width" />
 
-    <title>SearchClass</title>
-</head>
-<body>
+        <title>SearchClass</title>
+    </head>
+    <body>*@
 
-    @{
-        DateTime date = DateTime.Now;
-    }
-    <div class="row">
+@{
+    DateTime date = DateTime.Now;
+}
+<div class="row">
 
-        <div class="col-lg-6" style="margin-left:300px">
+    <div class="col-lg-6" style="margin-left:300px">
 
 
 
-            <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSES HOMEWORK</h1>
+        <h1 style="font-family:'Comic Sans MS';font-size:20px" class=" list-group-item active">CLASSES HOMEWORK</h1>
 
-            @foreach (var c in Model.AssignmentPosts)
+        @foreach (var c in Model.AssignmentPosts)
+        {
+
+            <h1 class="list-group-item col-sm-11 " style="font-family: 'Comic Sans MS'; font-size: 15px; margin-left: 15px">
+                @c.Name Time: @c.SubmissionTime
+            </h1>
+
+            bool flag = false;
+
+            foreach (var ass in c.Assignments)
             {
-
-                <h1 class="list-group-item col-sm-11 " style="font-family: 'Comic Sans MS'; font-size: 15px; margin-left: 15px">
-                    @c.Name Time: @c.SubmissionTime
-                </h1>
-                
-                bool flag = false;
-                
-                foreach (var ass in c.Assignments)
+                if (ass.Student_Id == u.Id)
                 {
-                    if (ass.Student_Id == u.Id)
-                    {
-                        flag = true;
-                    }
+                    flag = true;
                 }
-
-                
-                if (u.Type.Equals("Student") && date.CompareTo(c.SubmissionTime) < 0 && flag == false)
-                {
-                  <form action="/Classroom/UploadAssignment" method="post" enctype="multipart/form-data">
-                      <input required type="text" name="Name" class="form-control" placeholder="HomeWork Name" style="width:605px;margin-left:15px" />
-                      <input type="hidden" name="Post_Id" value="@c.Id" />
-                      <div class="col-sm-4">
-                      <div class="icons">
-                          <div class="inner-addon left-addon">
-                              <i class="glyphicon glyphicon-arrow-up"></i>
-                              <input type="file" name="Path" class="form-control" style="width:200px" placeholder="UPLOAD HOMEWORK" />
-
-                          </div>
-                          <input type="hidden" name="Student_Id" value="@u.Id" />
-                          <input type="hidden" name="id" value="@Model.Id" />
-                      </div>
-                      </div>
-                    <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i></button>
-                 </form>  
-                }
-
             }
 
-        </div>
+
+            if (u.Type.Equals("Student") && date.CompareTo(c.SubmissionTime) < 0 && flag == false)
+            {
+                <form action="/Classroom/UploadAssignment" method="post" enctype="multipart/form-data">
+                    <input required type="text" name="Name" class="form-control" placeholder="HomeWork Name" style="width:605px;margin-left:15px" />
+                    <input type="hidden" name="Post_Id" value="@c.Id" />
+                    <div class="col-sm-4">
+                        <div class="icons">
+                            <div class="inner-addon left-addon">
+                                <i class="glyphicon glyphicon-arrow-up"></i>
+                                <input type="file" name="Path" class="form-control" style="width:200px" placeholder="UPLOAD HOMEWORK" />
+
+                            </div>
+                            <input type="hidden" name="Student_Id" value="@u.Id" />
+                            <input type="hidden" name="id" value="@Model.Id" />
+                        </div>
+                    </div>
+                    <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i></button>
+                </form>
+            }
+
+        }
 
     </div>
 
-    <br />
-    <br/>
+</div>
 
-    @if (u.Type.Equals("Teacher"))
-    {
-        <div class="col-lg-6" style="margin-left:300px">
+<br />
+<br />
+
+@if (u.Type.Equals("Teacher"))
+{
+    <div class="col-lg-6" style="margin-left:300px">
         <div class="panel-group">
 
             <form action="/ClassRoom/AddAssignmentPost" method="post">
@@ -122,11 +123,11 @@
 
 
         </div>
-        </div>
-        
-  
-    }
+    </div>
 
-</body>
-</html>
+
+}
+
+    @*</body>
+        </html>*@
 
